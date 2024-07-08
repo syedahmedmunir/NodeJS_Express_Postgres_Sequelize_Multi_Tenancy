@@ -1,12 +1,12 @@
-// const { Student } = require('../models');
+const {apiResponse} = require('../helpers/helper');
 
 exports.getAll = async (req, res) => {
-
   const { Student } = req.models;
+  
   try {
     const students = await Student.findAll();
-    res.status(200).json(students);
+    apiResponse(res, {status: true, data: students});
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    apiResponse(res, {status: false, error: error.message});
   }
 };

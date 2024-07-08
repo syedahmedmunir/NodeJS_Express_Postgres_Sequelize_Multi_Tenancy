@@ -32,6 +32,24 @@ const getPath =(customPath="") =>{
   return currentDir;
 }
 
+const apiResponse=(res,response_data)=>{
+
+  const {status,data,message,error,code,...rest} = response_data;
+
+  let http_code = 200;
+  if(status == true){
+    response = {status,data,message,...rest};
+    http_code  = code ? code :200;
+    
+  }else{
+   response = {status,error};
+   http_code  = code ? code :400;
+
+  }
+
+  res.status(http_code).json(response);
+}
+
 const rootPath=  getPath();
 
-module.exports ={generateRand,getPath,rootPath}
+module.exports ={generateRand,getPath,apiResponse,rootPath}
