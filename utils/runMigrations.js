@@ -6,8 +6,7 @@ const { Umzug, SequelizeStorage } = require('umzug');
 const runMigrations = async (dbConfig,type="admin") => {
   try {
     const sequelize = new Sequelize(dbConfig);
-
-
+    
     let migration_path = 'migrations/admin/*.js';
     if(type=="tenant"){
       migration_path = 'migrations/*.js';
@@ -21,8 +20,6 @@ const runMigrations = async (dbConfig,type="admin") => {
     });
 
     let migration_status = await umzug.up();
-
-    console.log('dbConfig',dbConfig,migration_status);
 
     let migration_action = migration_status.map((val) => 'Migrated '+  val.name );
     let migration_message = "Migrations Run Successfully";
